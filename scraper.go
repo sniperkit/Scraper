@@ -16,6 +16,7 @@ import (
 )
 
 var tempDate string
+var isAlert bool
 
 // Alert type
 type Alert struct {
@@ -62,7 +63,7 @@ func main() {
 			}
 		}
 		//set monitor targets
-		targets := []string{"go", "python", "javascript", "swift", "objective-c", "ruby"}
+		targets := []string{"go", "javascript", "vue", "CMake", "python", "C#", "C++", "Dockerfile", "Makefile"}
 
 		var content, readme string
 		jobs := make(chan string, 10)
@@ -104,17 +105,18 @@ func main() {
 		gitCommit()
 		gitPush()
 
-		alert := Alert{
-		//Get your unique ID from https://www.alertover.com to replace "xxxxxxxx" below
-			Source:   "xxxxxxxx",
-			Receiver: "xxxxxxxx",
-			Title:    "Ok",
-			Content:  message,
-			URL:      "https://github.com/henson/Scraper",
-			Priority: "0", //优先级：0 普通，1 紧急
+		if isAlert {
+			alert := Alert{
+				//Get your unique ID from https://www.alertover.com to replace "xxxxxxxx" below
+				Source:   "xxxxxxxx",
+				Receiver: "xxxxxxxx",
+				Title:    "Ok",
+				Content:  message,
+				URL:      "https://github.com/sniperkit/Scraper",
+				Priority: "0", //优先级：0 普通，1 紧急
+			}
+			alert.SendAlert()
 		}
-
-		alert.SendAlert()
 
 		time.Sleep(time.Duration(24) * time.Hour)
 	}
