@@ -1,0 +1,3 @@
+package: github.com/sniperkit/Scraper
+import:
+- package: github.com/PuerkitoBio/goquery
